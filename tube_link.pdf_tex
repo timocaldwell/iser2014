@@ -1,0 +1,75 @@
+%% Creator: Inkscape inkscape 0.48.2, www.inkscape.org
+%% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
+%% Accompanies image file 'tube_link.pdf' (pdf, eps, ps)
+%%
+%% To include the image in your LaTeX document, write
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics{<filename>.pdf}
+%% To scale the image, write
+%%   \def\svgwidth{<desired width>}
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics[width=<desired width>]{<filename>.pdf}
+%%
+%% Images with a different path to the parent latex file can
+%% be accessed with the `import' package (which may need to be
+%% installed) using
+%%   \usepackage{import}
+%% in the preamble, and then including the image with
+%%   \import{<path to file>}{<filename>.pdf_tex}
+%% Alternatively, one can specify
+%%   \graphicspath{{<path to file>/}}
+%% 
+%% For more information, please see info/svg-inkscape on CTAN:
+%%   http://tug.ctan.org/tex-archive/info/svg-inkscape
+%%
+\begingroup%
+  \makeatletter%
+  \providecommand\color[2][]{%
+    \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\transparent[1]{%
+    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+    \renewcommand\transparent[1]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \ifx\svgwidth\undefined%
+    \setlength{\unitlength}{639.65207381bp}%
+    \ifx\svgscale\undefined%
+      \relax%
+    \else%
+      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
+    \fi%
+  \else%
+    \setlength{\unitlength}{\svgwidth}%
+  \fi%
+  \global\let\svgwidth\undefined%
+  \global\let\svgscale\undefined%
+  \makeatother%
+  \begin{picture}(1,0.5758581)%
+    \put(0,0){\includegraphics[width=\unitlength]{tube_link.pdf}}%
+    \put(0.37352742,0.42172437){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Rotation About}}}%
+    \put(0.09019368,0.40541223){\color[rgb]{0,0,0}\makebox(0,0)[rb]{\smash{link $i+1$}}}%
+    \put(0.15204567,0.27029615){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{$X$}}}%
+    \put(0.2455324,0.26842331){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$Y$}}}%
+    \put(0.19329653,0.34369395){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$Z$}}}%
+    \put(0.08577186,0.1215313){\color[rgb]{0,0,0}\makebox(0,0)[rb]{\smash{link $i$}}}%
+    \put(0.48729825,0.2667587){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{$X$}}}%
+    \put(0.57953455,0.24049759){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$Y$}}}%
+    \put(0.55293757,0.33233974){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$Z$}}}%
+    \put(0.73257968,0.299038){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{$X$}}}%
+    \put(0.82216276,0.24049759){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$Y$}}}%
+    \put(0.79556577,0.33233974){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$Z$}}}%
+    \put(0.68851161,0.44557624){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Rotation
+}}}%
+    \put(0.89148297,0.40660888){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{Rotation }}}%
+    \put(0.32975792,0.38857375){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{ $X$-axis}}}%
+    \put(0.63939261,0.38445536){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$Y$-axis}}}%
+    \put(0.91818063,0.34213165){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$Z$-axis}}}%
+    \put(0.68151422,0.41461823){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{ About}}}%
+    \put(0.91906507,0.37573744){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{About}}}%
+    \put(0.10876533,0.30371035){\color[rgb]{0,0,0}\makebox(0,0)[rb]{\smash{joint $i$}}}%
+  \end{picture}%
+\endgroup%
