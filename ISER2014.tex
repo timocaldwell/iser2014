@@ -202,7 +202,7 @@ The steepest descent direction is $-\nabla J_d(\rho)$ and the steepest descent a
 \section{Identification for Example}
 The parameters to be identified are the spring constants of the flexible object given by the six dimensional $\rho$.  The identification calculates the value $\rho$ with simulation that best matches the measured data. We do the matching for two sets of measured data.  The first is just Baxter's arm joint torque and joint angle measurements while the second also includes vision (see Section XXXX).  
 
-\subsection{Without Vision}
+\subsection{Without Vision \label{sec-no_vis}}
 Without vision, the only measurements are Baxter's arm joint torques and angles.  Since Baxter is only in contact with the object at its end effector, the robot can only measure the flexible object's movement at that single point. The cost $J_d(\rho)$ for parameters $\rho$ is chosen to compare the position of Baxter's end effector in space between the simulation and the measured.  Label $w_k(\rho)$ as this simulated end effector's position at time $t_k$ for parameters $\rho$ and $\overline{w}_k$ as this measured position at $t_k$.  Set $\epsilon_k := w_k(\rho)-\overline{w}_k$.  The cost $J_d$ is defined by the running cost $\ell_d(q_k,\rho)$ and the terminal cost $m_d(q_{k_f},\rho)$, set as
 \[
 \ell_d(q_k,\rho) = \epsilon_k^T\epsilon_k \textrm{ and } m_d(q_{k_f},\rho) = \epsilon_{k_f}^T\epsilon_{k_f}.
@@ -218,10 +218,27 @@ The optimization results in $\rho^\star = [23.780,  0.000 , 18.357 , 11.103 , 3.
 \end{itemize}
 Ultimately, the flexible object identification as set up here with a single point of measurement is inadequate. We turn to vision next to improve identification quality.
 
-\subsection{With Vision}
-With vision, the motion of more locations on the flexible object can be measured. However, as discussed in Section XXXXX, our vision measurements arrive at irregular intervals and sometimes of dubious quality. Fortunately, not every discrete time $t_k$ for which Baxter publishes its measurements---i.e. every $0.01$ seconds---is needed to improve identification from the without vision situation.  
+\subsection{With Vision \label{sec-w_vis}}
+With vision, the motion of more locations on the flexible object can be measured than with touch alone. However, as discussed in Section XXXXX, our vision measurements arrive at irregular intervals and sometimes of dubious quality. However, the identification result is an improvment compared to without it. The following process filters the vision data, removing bad data and aligning the good data with the timing of the simulation:
 
-The following is the process for which we choose which vision measurements are of good enough quality to be used in the identification: The fitting through the program Eq.(\ref{eq-fit_prog}) can be of poor quality. A poorer quality is quantified by a greater $d(p,L_{model}(q_o^\star))$ value for an optimal fit $q_o^\star$ with $p\in G_{processed}$. Specify the tolerance $d_{max}>0$ and keep only fits such that $d(p,L_{model}(q_o^\star))<d_{max}$. Label these fits as $q_o^\star(s)$ where $s_i\in\tau$ is the timing of the vision capture and $\tau$ is the collection of these times. These $s$ may not match a discrete time of the system, $t_k$. Therefore, we interpolate the collection of $q_o^\star(s)$ for the full time interval with a cubic spline. Label the interpolated points as $q_{o,interp}^\star[0,t_f]$. In the parameter identification, the cost will only depend on the $q_{o,interp}^\star$ evaluated at the times $t_k$ nearest the times $\tau$. .............. XXXXXXXXXXXX
+From Section XXXXXVision, each frame of vision data is processed resulting in points $G_{processed}$ and fitted to the model with optimal fit of $q_o^\star$. Recall $q_o^\star$ is the configuration of the object that best fits the data and is calculated from the program Eq.(\ref{eq-fit_prog}). The frame occurs at a time $s$ and so we label that frame's fit as $q_o^\star(s)$.  Furthermore, the quality of the fit is quantified by the value of $d(p,L_{model}(q_o^\star(s)))$ where lesser values correspond to better fits.  As such, ``good'' data is when $\sum_{p\in G_{processed}}d(p,L_{model}(q_o^\star(s)))<d_{max}$, a user specified tolerance. Discard the data that does not meet this requirement.  In order to align the data timing with the simulation, we first interpolate over time the remaining data using a cubic spline, and label $q_{o,interp}^\star$.  Second, we calculate the simulation times $t_k$ nearest the timing $s$ of the remaining data. Define $\sigma = \{\sigma_1,\ldots,\sigma_{k_f}\}$ as $\sigma_k = 1$ if there $t_k$ is the simulation time nearest an vision time $s$.  In the identification, the cost function depends on the vision data $q_{o,interp}^\star(t_k)$ for $\sigma_k = 1$.
+
+In order to conduct the indentification using the optimization method in Secion XXXX, we need to specify a cost function.  The cost depends on Baxter's joint angles in the same manner as in Section \ref{sec-no_vis}, where the only point of measurement on the flexible object is the grasp location at the robot's end effector. With vision, we use the vision fitted configurations, $q_{o,interp}^\star$, to also compare to the simulation the measured locations of the flexible object's juncture point and ungrasped branch end point (see Figure XXXX for these two points). Label $w_k^{ee}(\rho)$, $w_k^j (\rho)$, and $w_k^{bt}(\rho)$ as the simulated end effector point, joint point, and ungrasped branch tip point for parameters $\rho$ at time $t_k$, respectively. Similarily, label the measured points as $\overline{w}_k^{ee}$, $\overline{w}_k^j$, and $\overline{w}_k^{bt}$. The measured data $\overline{w}_k^{j}$ and $\overline{w}_k^{bt}$ is calculated from $q_{o,interp}^\star$ and is only valid for times $t_k$ where $\sigma_k = 1$.  
+
+The cost for identification depends on the error between the simulation and the measured. Set
+\[
+\epsilon^{ee}_k := w^{ee}_k(\rho)-\overline{w}^{ee}_k \textrm{, } \epsilon^{j}_k = \sigma_k(w^j_k(\rho)-\overline{w}^j_k) \textrm{, and } \epsilon^{j}_k = \sigma_k(w^{bt}_k(\rho)-\overline{w}^{bt}_k).
+\]
+The running cost is 
+\[
+\ell_d(q_k,\rho) = (\epsilon^{ee}_k)^TQ^{ee}\epsilon^{ee}_k + (\epsilon^{j}_k)^TQ^{j}\epsilon^{j}_k + (\epsilon^{bt}_k)^TQ^{bt}\epsilon^{bt}_k
+\]
+where the weight was chosen to be $Q^{ee} = Q^{j} = Q^{bt} = Id_{3}$ where $Id_{3}$ is the $3\times3$ identity matrix.  We set the running cost to be $m_d(q_{k_f},\rho) = \ell_d(q_{k_f},\rho)$.
+
+We execute the parameter identification as in Section \ref{sec-no_vis} starting with an initial guess of $\rho = [3, 3, 3, 3, 3, 3]^T$. The optimization results in identified parameters: $\rho = [22.270 , 13.593 , 10.735 ,  8.202  ,11.5111,   9.692]^T$.
+
+\subsection{Discussion}
+
 
 
 \section{Planning}
