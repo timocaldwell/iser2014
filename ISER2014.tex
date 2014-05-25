@@ -76,14 +76,16 @@ Blah
 \end{figure}
 
 \section{Example Experiment Setup}
-The goal of the example experiment is to first identify dynamic properties of a flexible obect and to second use the identified model for trajectory planning. The flexible object is shaped like the letter `Y'.  It is supposed to resemble a potential geometry of a plant. The base, or `trunk' is attached to the ground and is labelled $T_1$. The robot has the end of one branch grasped. This branch is labelled $T_2$.  The other branch is not reachable by the other arm and is labelled $T_3$. The ultimate goal is to manipulate the grasped branch so that the other branch enters the work space of the end effector of the free arm. Due to the flexibility of the object it is not immediately clear how to plan a manipulation that moves the free branch to the desired region. For this reason, we first conduct the parameter identification from \cite{caldwell_coleman_correll_iros} in order to identify a model.  Second, we use the optimal control technique from XXXX to calculate a path to move the tip of the free branch to a desired point in space.  We use vision to XXXX.
+\label{sec-exp}
+The goal of the example experiment is to first identify dynamic properties of a flexible obect and to second use the identified model for trajectory planning. The flexible object is shaped like the letter `Y'.  It is supposed to resemble a potential geometry of a plant. The base, or `trunk' is attached to the ground and is labelled $T_1$. The robot has the end of one branch grasped. This branch is labelled $T_2$.  The other branch is not reachable by the other arm and is labelled $T_3$. The ultimate goal is to manipulate the grasped branch so that the other branch enters the work space of the end effector of the free arm. Due to the flexibility of the object it is not immediately clear how to plan a manipulation that moves the free branch to the desired region. For this reason, we first conduct the parameter identification from \cite{caldwell_coleman_correll_iros} in order to identify a model using only touch.  We will find that touch alone is not sufficient to identify the parameters, and so we use a vision system to capture the motion of the full flexible object. The identification process is the same as in \cite{caldwell_coleman_correll_iros} once the vision data has been fitted to the model.  Finally, we use the optimal control technique from \cite{hauser} to calculate a path to move the tip of the free branch to a desired point in space.  
 
-The flexible object is foam tubing with differing widths for each the trunk and the two branches. The three tubes are connected with a `Y' joint PVC and glue.  The trunk tube has length XXXX and mass XXX. It is the widest tube at XXXX. The grasped tube has length XXX and mass XX and is the second widest tube. The free tube has length XXX and mass XXX. It is the thinnest at XXXX.  The width is mentioned because we expect the relative twisting stiffnesses of each tube to correlate with their widths. 
+The flexible object is foam tubing with differing widths for each the trunk and the two branches. The three tubes are connected with a `Y' joint PVC and glue.  The trunk tube has length 0.813m and mass 0.064Kg. It is the widest tube with radius 0.032m. The grasped tube has length 0.610m and mass 0.015Kg and is the second widest tube with radius 0.025m. The free tube has length 0.737m and mass 0.016Kg. It is the thinnest with radius 0.019m.  The width is mentioned because we expect the relative twisting stiffnesses of each tube to correlate with their widths. 
 
-We use Rethink Robotics' Baxter \cite{guizzo2011rethink} robot to both manipulate and measure the loop.  Each of Baxter's arms have 7 degrees of freedom.  The arms are designed for compliance since each joint has series elastic actuators that allows for force sensing and control.  Baxter can publish the joint angles and torques at 100Hz.  A picture of Baxter manipulating the flexible object is in Figure XXXXX. 
+We use Rethink Robotics' Baxter \cite{guizzo2011rethink} robot to both manipulate and measure the loop.  Each of Baxter's arms have 7 degrees of freedom.  The arms are designed for compliance since each joint has series elastic actuators that allows for force sensing and control.  Baxter can publish the joint angles and torques at 100Hz.  A picture of Baxter manipulating the flexible object is in Figure \ref{fig-baxter_y}. 
 
-\section{Model and Simulation}
-The flexible object is modeled using as a spring mass system. The trunk and branches are each approximated with four rigid links of uniform lengths and masses connected by joints with torsional springs. The joints are 3 dimensional modeling bending and twisting of the flexible object. In total, the flexible object is 36 dimensional. The goal of the identification, Section XXXX, is to identify the torsional springs' spring constants. We label these parameters as $\rho$.
+\section{Model and Simulation \label{sec-sim}}
+\label{sec-sim}
+The flexible object is modeled using as a spring mass system. The trunk and branches are each approximated with four rigid links of uniform lengths and masses connected by joints with torsional springs. The joints are 3 dimensional modeling bending and twisting of the flexible object. In total, the flexible object is 36 dimensional. The goal of the identification, Section \ref{sec-id}, is to identify the torsional springs' spring constants. We label these parameters as $\rho$.
 
 Each of Baxter's arms are 7 degrees of freedom. Thus, the system of Baxter grasping one end of the flexible object---neglecting the other arm--- has a total number of 43 configuration variables. The dimensions,  inertia, and other information concerning Baxter's arm can be obtained at \url{https://github.com/RethinkRobotics}.  
 
@@ -119,7 +121,7 @@ where $T$ and $b$ as the filtered joint torques and angles.  When $K$ is too lar
 
 
 \section{Vision}
-
+\label{sec-vis}
 For verification and improvement of the parameter identification algorithms, the plant model is visually tracked using an out of the box depth sensor, the Asus Xtion Pro. The depth sensor is positioned directly in front of the robot, viewing the Baxter and the flexible object. The processing of the acquired point clouds consists of three steps: filtering, segmentation, and graph creation. 
 
 The motion planning framework MoveIt! \cite{moveit} is used to perform the first step of self-filtering for the point cloud data $G$, removing points detected on the robot’s body and arms. This is accomplished using the realtime joint states and calculated coordinate transforms to determine the robot’s configuration. The Point Cloud Library (PCL) \cite{rusu20113d} is used for the second level of filtering, removing points detected behind the robot and on the floor. Finally, a statistical outlier removal filter is used to remove noise and measurement errors.
@@ -130,7 +132,7 @@ Assuming the number of points is above a minimum threshold (to remove noise), th
 
 The last vision tracking step takes the disconnected points in $G_{processed}$ and performs one final series of nearest neighbor searches to connect the nodes together to represent a flexible plant modeled as a series of connected rigid bodies. These connected rigid bodies give a surprisingly accurate three dimensional reconstruction of a flexible object in soft-realtime, processing new point clouds at a rate averaging 3 hz. XXXXXX TIM SAYS: ADD A FIGURE
 
-\subsection{Fitting to Model}
+\subsection{Fitting to Model \label{sec-fit}}
 
 The processed points in $G_{processed}$ need to be fitted to the model to be useful. The model is a discretization of the physical object where the flexible object’s configuration specifies the location of the discretization points. Label the object’s configuration as $q_o$. 
 
@@ -140,13 +142,14 @@ The fitting is a calculation on $q_o$ and is accomplished as follows: Let $G_{mo
 \label{eq-fit_prog}
 \end{equation}
 
-\subsection{Vision Tracking Concerns}
+\subsection{Vision Tracking Concerns \label{sec-vis_disc}}
 
 A number of tuned parameters make this algorithm sensitive to plant model size, the distance between the camera and the model, and variability of the thickness of the trunk and branches of the plant. However, it works well for our experimental goals in verification.
 
 One major shortcoming of the vision tracking pipeline developed for this experiment was occasional choppiness and buffering issues. Because of the computational complexity of our flexible object manipulation pipeline, the experiment was run on 3 distributed commodity PCs using ROS \cite{quigley2009ros}. A common issue was clock time synchronization between the three PCs, and ROS messages being dropped because of full buffers. This caused the robot transforms to be published with old time stamps and the robot self-filtering of the point clouds to stall, ultimately resulting in choppiness in the visual tracking of the plant model. This is an area of continued investigation and improvement. 
 
 \section{Identification}
+\label{sec-id}
 The goal of the identification is to calculate model parameters of the system that best agree with the physical behavior of the physical object. For the example in the paper, the parameters we wish to identify are the spring constants of the flexible object spring mass model. 
 
 Each joint of the flexible object is 3-dimensional: the joint can rotate along each axis. As seen in figure \ref{fig-tube_link}, each joint frame has the $Z$-axis aligned with the link. Therefore, a bend in the tube at a joint is realized by a rotation about the $X$- and $Y$-axes and a twist in the tube is a rotation about the $Z$-axis. Because the foam is uniformly distributed for each tube, we assume that the spring constants associated with bending---i.e. rotations about the $X$ and $Y$ axes---are the same for a single tube. 
@@ -179,7 +182,7 @@ The goal of parameter optimization is to calculate the model parameters $\rho$ t
 \[
 \min_{\rho} \Big[J_d(\rho):=\sum_{k=1}^{k_f}\ell_d(x_k,\rho) + m_d(x_{k_f},\rho)\Big]
 \]
-constrained to the dynamics, $x_{k+1} = f(x_k,\rho,t_k)$. Since this is a nonlinear optimal control problem, we turn to iterative methods like steepest descent to calculate a local minima. In order to apply steepest descent, we must have access the the gradient of the cost, which is given in the following Lemma from \textbf{CITE IROS PAPER}. 
+constrained to the dynamics, $x_{k+1} = f(x_k,\rho,t_k)$. Since this is a nonlinear optimal control problem, we turn to iterative methods like steepest descent to calculate a local minima. In order to apply steepest descent, we must have access the the gradient of the cost, which is given in the following Lemma from \cite{caldwell_coleman_correll_iros}. 
 \begin{lemma}
 \label{lem-grad_a}
 Suppose $f(x_k,\rho,t_k)$ is $\mathcal{C}^2$ with respect to $x_k$ and $\rho$.  Let $A_k$ and $B_k$ form the linearization of $f$, Eq.(\ref{eq-lin_fk}), and assume $f_k$ exists.  Then,
@@ -195,19 +198,19 @@ where $\lambda_k$ is the solution to the backward one-step mapping
 starting from $\lambda_{k_f} = \frac{\partial}{\partial x_{k_f}}\ell(x_{k_f},\rho) + \frac{\partial}{\partial x_{k_f}}m_d(x_{k_f},\rho)$.  
 \end{lemma}
 
-It is worth noting that $f_k$ is not gauranteed to exist, but its existance can be checked using the Implicit Function Theorem. \textbf{CITE JARVIS} shows a couple of scenarios where such singularities occur.  Also, the gradient and Hessian for optimal parameter identification in continuous time can be found in \cite{miller_murphey}.
+It is worth noting that $f_k$ is not gauranteed to exist, but its existance can be checked using the Implicit Function Theorem. \textbf{XXXXXXCITE JARVIS} shows a couple of scenarios where such singularities occur.  Also, the gradient and Hessian for optimal parameter identification in continuous time can be found in \cite{miller_murphey}.
 
-The steepest descent direction is $-\nabla J_d(\rho)$ and the steepest descent algorithm can be applied \textbf{cite kelley; luenberger}.
+The steepest descent direction is $-\nabla J_d(\rho)$ and the steepest descent algorithm can be applied \textbf{XXXXXcite kelley; luenberger}.
 
 \section{Identification for Example}
-The parameters to be identified are the spring constants of the flexible object given by the six dimensional $\rho$.  The identification calculates the value $\rho$ with simulation that best matches the measured data. We do the matching for two sets of measured data.  The first is just Baxter's arm joint torque and joint angle measurements while the second also includes vision (see Section XXXX).  
+The parameters to be identified are the spring constants of the flexible object given by the six dimensional $\rho$.  The identification calculates the value $\rho$ with simulation that best matches the measured data. We do the matching for two sets of measured data.  The first is just Baxter's arm joint torque and joint angle measurements while the second also includes vision (see Section \ref{sec-vis}).  
 
 \subsection{Without Vision \label{sec-no_vis}}
 Without vision, the only measurements are Baxter's arm joint torques and angles.  Since Baxter is only in contact with the object at its end effector, the robot can only measure the flexible object's movement at that single point. The cost $J_d(\rho)$ for parameters $\rho$ is chosen to compare the position of Baxter's end effector in space between the simulation and the measured.  Label $w_k(\rho)$ as this simulated end effector's position at time $t_k$ for parameters $\rho$ and $\overline{w}_k$ as this measured position at $t_k$.  Set $\epsilon_k := w_k(\rho)-\overline{w}_k$.  The cost $J_d$ is defined by the running cost $\ell_d(q_k,\rho)$ and the terminal cost $m_d(q_{k_f},\rho)$, set as
 \[
 \ell_d(q_k,\rho) = \epsilon_k^T\epsilon_k \textrm{ and } m_d(q_{k_f},\rho) = \epsilon_{k_f}^T\epsilon_{k_f}.
 \]
-We calculate the locally optimal parameters $\rho^\star$ using steepest descent with gradient calculated in Section XXXXX. There is an inequality constraint that each parameter $\rho_i>0$, $i = 1,\ldots,6$. We seed the interative optimization with an initial guess of $\rho = [3, 3, 3, 3, 3, 3]^T$.  %#At each iteration of steepest descent, an Armijo line search updates the parameters by choosing a distance to step in the direction of the negative gradient.  We used Armijo parameters $\alpha = \beta = 0.4$ \cite{armijo}.
+We calculate the locally optimal parameters $\rho^\star$ using steepest descent with gradient calculated in Section \ref{sec-id}. There is an inequality constraint that each parameter $\rho_i>0$, $i = 1,\ldots,6$. We seed the interative optimization with an initial guess of $\rho = [3, 3, 3, 3, 3, 3]^T$.  %#At each iteration of steepest descent, an Armijo line search updates the parameters by choosing a distance to step in the direction of the negative gradient.  We used Armijo parameters $\alpha = \beta = 0.4$ \cite{armijo}.
 
 The optimization results in $\rho^\star = [23.780,  0.000 , 18.357 , 11.103 , 3.200,  3.059]^T$. Refer to Eq.(\ref{eq-params}) to compare which parameters correspond to which spring constants. 
 
@@ -219,11 +222,11 @@ The optimization results in $\rho^\star = [23.780,  0.000 , 18.357 , 11.103 , 3.
 Ultimately, the flexible object identification as set up here with a single point of measurement is inadequate. We turn to vision next to improve identification quality.
 
 \subsection{With Vision \label{sec-w_vis}}
-With vision, the motion of more locations on the flexible object can be measured than with touch alone. However, as discussed in Section XXXXX, our vision measurements arrive at irregular intervals and sometimes of dubious quality. However, the identification result is an improvment compared to without it. The following process filters the vision data, removing bad data and aligning the good data with the timing of the simulation:
+With vision, the motion of more locations on the flexible object can be measured than with touch alone. However, as discussed in Section \ref{sec-vis_disc}, our vision measurements arrive at irregular intervals and sometimes of dubious quality. However, the identification result is an improvment compared to without it. The following process filters the vision data, removing bad data and aligning the good data with the timing of the simulation:
 
-From Section XXXXXVision, each frame of vision data is processed resulting in points $G_{processed}$ and fitted to the model with optimal fit of $q_o^\star$. Recall $q_o^\star$ is the configuration of the object that best fits the data and is calculated from the program Eq.(\ref{eq-fit_prog}). The frame occurs at a time $s$ and so we label that frame's fit as $q_o^\star(s)$.  Furthermore, the quality of the fit is quantified by the value of $d(p,L_{model}(q_o^\star(s)))$ where lesser values correspond to better fits.  As such, ``good'' data is when $\sum_{p\in G_{processed}}d(p,L_{model}(q_o^\star(s)))<d_{max}$, a user specified tolerance. Discard the data that does not meet this requirement.  In order to align the data timing with the simulation, we first interpolate over time the remaining data using a cubic spline, and label $q_{o,interp}^\star$.  Second, we calculate the simulation times $t_k$ nearest the timing $s$ of the remaining data. Define $\sigma = \{\sigma_1,\ldots,\sigma_{k_f}\}$ as $\sigma_k = 1$ if there $t_k$ is the simulation time nearest an vision time $s$.  In the identification, the cost function depends on the vision data $q_{o,interp}^\star(t_k)$ for $\sigma_k = 1$.
+From Section \ref{sec-vis}, each frame of vision data is processed resulting in points $G_{processed}$ and fitted to the model with optimal fit of $q_o^\star$. Recall $q_o^\star$ is the configuration of the object that best fits the data and is calculated from the program Eq.(\ref{eq-fit_prog}). The frame occurs at a time $s$ and so we label that frame's fit as $q_o^\star(s)$.  Furthermore, the quality of the fit is quantified by the value of $d(p,L_{model}(q_o^\star(s)))$ where lesser values correspond to better fits.  As such, ``good'' data is when $\sum_{p\in G_{processed}}d(p,L_{model}(q_o^\star(s)))<d_{max}$, a user specified tolerance. Discard the data that does not meet this requirement.  In order to align the data timing with the simulation, we first interpolate over time the remaining data using a cubic spline, and label $q_{o,interp}^\star$.  Second, we calculate the simulation times $t_k$ nearest the timing $s$ of the remaining data. Define $\sigma = \{\sigma_1,\ldots,\sigma_{k_f}\}$ as $\sigma_k = 1$ if there $t_k$ is the simulation time nearest an vision time $s$.  In the identification, the cost function depends on the vision data $q_{o,interp}^\star(t_k)$ for $\sigma_k = 1$.
 
-In order to conduct the indentification using the optimization method in Secion XXXX, we need to specify a cost function.  The cost depends on Baxter's joint angles in the same manner as in Section \ref{sec-no_vis}, where the only point of measurement on the flexible object is the grasp location at the robot's end effector. With vision, we use the vision fitted configurations, $q_{o,interp}^\star$, to also compare to the simulation the measured locations of the flexible object's juncture point and ungrasped branch end point (see Figure XXXX for these two points). Label $w_k^{ee}(\rho)$, $w_k^j (\rho)$, and $w_k^{bt}(\rho)$ as the simulated end effector point, joint point, and ungrasped branch tip point for parameters $\rho$ at time $t_k$, respectively. Similarily, label the measured points as $\overline{w}_k^{ee}$, $\overline{w}_k^j$, and $\overline{w}_k^{bt}$. The measured data $\overline{w}_k^{j}$ and $\overline{w}_k^{bt}$ is calculated from $q_{o,interp}^\star$ and is only valid for times $t_k$ where $\sigma_k = 1$.  
+In order to conduct the indentification using the optimization method in Secion \ref{sec-id}, we need to specify a cost function.  The cost depends on Baxter's joint angles in the same manner as in Section \ref{sec-no_vis}, where the only point of measurement on the flexible object is the grasp location at the robot's end effector. With vision, we use the vision fitted configurations, $q_{o,interp}^\star$, to also compare to the simulation the measured locations of the flexible object's juncture point and ungrasped branch end point (see Figure XXXX for these two points). Label $w_k^{ee}(\rho)$, $w_k^j (\rho)$, and $w_k^{bt}(\rho)$ as the simulated end effector point, joint point, and ungrasped branch tip point for parameters $\rho$ at time $t_k$, respectively. Similarily, label the measured points as $\overline{w}_k^{ee}$, $\overline{w}_k^j$, and $\overline{w}_k^{bt}$. The measured data $\overline{w}_k^{j}$ and $\overline{w}_k^{bt}$ is calculated from $q_{o,interp}^\star$ and is only valid for times $t_k$ where $\sigma_k = 1$.  
 
 The cost for identification depends on the error between the simulation and the measured. Set
 \[
@@ -241,14 +244,14 @@ We execute the parameter identification as in Section \ref{sec-no_vis} starting 
 
 
 
-\section{Planning}
+\section{Planning \label{sec-planning}}
 \begin{enumerate}
 \item Goal: calculate torques and state trajectory that moves the other end of the flexible-Y to a desired point in space.
 \item Optimal control stuff.
 \item Results.
 \end{enumerate}
 
-\section{Discussion / Conclusion}
+\section{Discussion / Conclusion \label{sec-conc}}
 
 
 \bibliographystyle{plain}
