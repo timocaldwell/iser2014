@@ -36,7 +36,7 @@
   }%
   \providecommand\rotatebox[2]{#2}%
   \ifx\svgwidth\undefined%
-    \setlength{\unitlength}{444.3172125bp}%
+    \setlength{\unitlength}{453.07856445bp}%
     \ifx\svgscale\undefined%
       \relax%
     \else%
@@ -48,13 +48,13 @@
   \global\let\svgwidth\undefined%
   \global\let\svgscale\undefined%
   \makeatother%
-  \begin{picture}(1,0.98668246)%
+  \begin{picture}(1,0.96760261)%
     \put(0,0){\includegraphics[width=\unitlength]{baxter_y_sim.pdf}}%
-    \put(0.76046941,0.41508115){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$T_3$}}}%
-    \put(0.61860343,0.25684591){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$T_1$}}}%
-    \put(0.31850221,0.41871867){\color[rgb]{0,0,0}\makebox(0,0)[rb]{\smash{$T_2$}}}%
-    \put(0.12570991,0.6370838){\color[rgb]{0,0,0}\makebox(0,0)[rb]{\smash{$w^{ee}$}}}%
-    \put(0.4706595,0.34774897){\color[rgb]{0,0,0}\makebox(0,0)[rb]{\smash{$w^j$}}}%
-    \put(0.92910564,0.65701739){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{$w^{bt}$}}}%
+    \put(0.76437618,0.40705457){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$T_3$}}}%
+    \put(0.62525351,0.25187918){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$T_1$}}}%
+    \put(0.33095547,0.41062174){\color[rgb]{0,0,0}\makebox(0,0)[rb]{\smash{$T_2$}}}%
+    \put(0.14189126,0.62476427){\color[rgb]{0,0,0}\makebox(0,0)[rb]{\smash{$w^{T_2}$}}}%
+    \put(0.48017044,0.34102442){\color[rgb]{0,0,0}\makebox(0,0)[rb]{\smash{$w^{T_1}$}}}%
+    \put(0.92975142,0.6443124){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{$w^{T_3}$}}}%
   \end{picture}%
 \endgroup%

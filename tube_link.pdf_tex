@@ -36,7 +36,7 @@
   }%
   \providecommand\rotatebox[2]{#2}%
   \ifx\svgwidth\undefined%
-    \setlength{\unitlength}{639.65207381bp}%
+    \setlength{\unitlength}{654.35983749bp}%
     \ifx\svgscale\undefined%
       \relax%
     \else%
@@ -48,28 +48,28 @@
   \global\let\svgwidth\undefined%
   \global\let\svgscale\undefined%
   \makeatother%
-  \begin{picture}(1,0.5758581)%
+  \begin{picture}(1,0.56291479)%
     \put(0,0){\includegraphics[width=\unitlength]{tube_link.pdf}}%
-    \put(0.37352742,0.42172437){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Rotation About}}}%
-    \put(0.09019368,0.40541223){\color[rgb]{0,0,0}\makebox(0,0)[rb]{\smash{link $i+1$}}}%
-    \put(0.15204567,0.27029615){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{$X$}}}%
-    \put(0.2455324,0.26842331){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$Y$}}}%
-    \put(0.19329653,0.34369395){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$Z$}}}%
-    \put(0.08577186,0.1215313){\color[rgb]{0,0,0}\makebox(0,0)[rb]{\smash{link $i$}}}%
-    \put(0.48729825,0.2667587){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{$X$}}}%
-    \put(0.57953455,0.24049759){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$Y$}}}%
-    \put(0.55293757,0.33233974){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$Z$}}}%
-    \put(0.73257968,0.299038){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{$X$}}}%
-    \put(0.82216276,0.24049759){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$Y$}}}%
-    \put(0.79556577,0.33233974){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$Z$}}}%
-    \put(0.68851161,0.44557624){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Rotation
+    \put(0.36513181,0.41224545){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Rotation About}}}%
+    \put(0.08816644,0.39629995){\color[rgb]{0,0,0}\makebox(0,0)[rb]{\smash{link $i+1$}}}%
+    \put(0.1486282,0.26422082){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{$X$}}}%
+    \put(0.24001367,0.26239007){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$Y$}}}%
+    \put(0.18895189,0.33596889){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$Z$}}}%
+    \put(0.083844,0.11879969){\color[rgb]{0,0,0}\makebox(0,0)[rb]{\smash{link $i$}}}%
+    \put(0.47634545,0.26076288){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{$X$}}}%
+    \put(0.56650861,0.23509203){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$Y$}}}%
+    \put(0.54050943,0.32486988){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$Z$}}}%
+    \put(0.7161138,0.29231665){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{$X$}}}%
+    \put(0.80368336,0.23509203){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$Y$}}}%
+    \put(0.74589787,0.32731503){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$Z$}}}%
+    \put(0.67303623,0.43556121){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Rotation
 }}}%
-    \put(0.89148297,0.40660888){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{Rotation }}}%
-    \put(0.32975792,0.38857375){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{ $X$-axis}}}%
-    \put(0.63939261,0.38445536){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$Y$-axis}}}%
-    \put(0.91818063,0.34213165){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$Z$-axis}}}%
-    \put(0.68151422,0.41461823){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{ About}}}%
-    \put(0.91906507,0.37573744){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{About}}}%
-    \put(0.10876533,0.30371035){\color[rgb]{0,0,0}\makebox(0,0)[rb]{\smash{joint $i$}}}%
+    \put(0.89392206,0.34819397){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{Rotation }}}%
+    \put(0.32234609,0.37983994){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{ $X$-axis}}}%
+    \put(0.62502126,0.37581412){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$Y$-axis}}}%
+    \put(0.92001964,0.28516596){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$Z$-axis}}}%
+    \put(0.66619612,0.40529904){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{ About}}}%
+    \put(0.92088421,0.31801642){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{About}}}%
+    \put(0.10632066,0.29688398){\color[rgb]{0,0,0}\makebox(0,0)[rb]{\smash{joint $i$}}}%
   \end{picture}%
 \endgroup%
